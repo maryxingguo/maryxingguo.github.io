@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"maryxingguo.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="使用pycharm、pyqt5、pyinstaller等工具，实现可视化界面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pycharm+pyqt5+pyinstaller实现可视化界面">
+<meta property="og:url" content="https://maryxingguo.github.io/2021/05/11/pycharm+pyqt5+pyinstaller%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2/index.html">
+<meta property="og:site_name" content="Sing Blog">
+<meta property="og:description" content="使用pycharm、pyqt5、pyinstaller等工具，实现可视化界面">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-11T14:38:54.000Z">
+<meta property="article:modified_time" content="2022-07-28T08:14:26.649Z">
+<meta property="article:author" content="Sing">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://maryxingguo.github.io/2021/05/11/pycharm+pyqt5+pyinstaller%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://maryxingguo.github.io/2021/05/11/pycharm+pyqt5+pyinstaller%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2/","path":"2021/05/11/pycharm+pyqt5+pyinstaller实现可视化界面/","title":"pycharm+pyqt5+pyinstaller实现可视化界面"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>pycharm+pyqt5+pyinstaller实现可视化界面 | Sing Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sing Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sing</p>
+  <div class="site-description" itemprop="description">笔记</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/maryxingguo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;maryxingguo" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://maryxingguo.github.io/2021/05/11/pycharm+pyqt5+pyinstaller%E5%AE%9E%E7%8E%B0%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sing">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sing Blog">
+      <meta itemprop="description" content="笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="pycharm+pyqt5+pyinstaller实现可视化界面 | Sing Blog">
+      <meta itemprop="description" content="使用pycharm、pyqt5、pyinstaller等工具，实现可视化界面">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pycharm+pyqt5+pyinstaller实现可视化界面
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-11 22:38:54" itemprop="dateCreated datePublished" datetime="2021-05-11T22:38:54+08:00">2021-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 16:14:26" itemprop="dateModified" datetime="2022-07-28T16:14:26+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">使用pycharm、pyqt5、pyinstaller等工具，实现可视化界面</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>1、安装软件和模块pycharm+pyqt5+pyqt5-tool+pyinstaller，以及相关配置<br>2、在QT中创建界面，生成ui文件<br>注：使用帮助文档,按一次“F1”即可全屏显示帮助文档页面，按“Esc”即可退出。<br>3、通过pyuic5 -o Interface.py Interface.ui,将ui文件转为py文件。<br>4、调用，新建RecallInterface.py，以及自己主函数f1.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="comment">#PyQt5中使用的基本控件都在PyQt5.QtWidgets模块中</span></span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QMainWindow</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QFileDialog</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtCore <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="comment">#导入designer工具生成的Interface.py</span></span><br><span class="line"><span class="keyword">from</span> XXA <span class="keyword">import</span> Ui_MainWindow</span><br><span class="line"><span class="comment">#导入自己设计的信息函数</span></span><br><span class="line"><span class="keyword">from</span> f1 <span class="keyword">import</span> NewoneEVE</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RecallInterface</span> (QMainWindow, Ui_MainWindow):</span><br><span class="line">	<span class="comment">#初始化，定义添加信息槽</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, parent=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(RecallInterface, self).__init__(parent)</span><br><span class="line">        self.ui = Ui_MainWindow()</span><br><span class="line">        self.ui.setupUi(self)</span><br><span class="line">        <span class="comment">#初始化界面信息</span></span><br><span class="line">        self.init_login_info()</span><br><span class="line">        <span class="comment">#触发事件</span></span><br><span class="line">        self.ui.OK.clicked.connect(self.begin)</span><br><span class="line">        self.ui.Reset.clicked.connect(self.clearResult)</span><br><span class="line">        self.ui.openfile.clicked.connect(self.msge)</span><br><span class="line">        self.url = <span class="string">&quot;https://www.baidu.com/index.php?tn=monline_3_dg&quot;</span></span><br><span class="line">        self.ui.pushButton.clicked.connect(self.msg)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 保存登录信息</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_login_info</span>(<span class="params">self</span>):</span><br><span class="line">        settings = QSettings(<span class="string">&quot;config.ini&quot;</span>, QSettings.IniFormat)  <span class="comment"># 方法1：使用配置文件</span></span><br><span class="line">        <span class="comment"># settings = QSettings(&quot;mysoft&quot;,&quot;myapp&quot;)                        #方法2：使用注册表</span></span><br><span class="line">        settings.setValue(<span class="string">&quot;excelpath&quot;</span>, self.ui.excelpath.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;readsheetname&quot;</span>, self.ui.readsheetname.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;browser&quot;</span>, self.ui.browser.currentText())</span><br><span class="line">        settings.setValue(<span class="string">&quot;driver_path&quot;</span>, self.ui.driver_path.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;startnum&quot;</span>, self.ui.startnum.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;rownum&quot;</span>, self.ui.row.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;endnum&quot;</span>, self.ui.endnum.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;sleeptime&quot;</span>, self.ui.sleeptime.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;topage&quot;</span>, self.ui.topage.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;toline&quot;</span>, self.ui.toline.text())</span><br><span class="line">        settings.setValue(<span class="string">&quot;need_domain&quot;</span>, self.ui.need_domain.currentText())</span><br><span class="line"><span class="comment">#初始化界面信息</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">init_login_info</span>(<span class="params">self</span>):</span><br><span class="line">        settings = QSettings(<span class="string">&quot;config.ini&quot;</span>, QSettings.IniFormat)        <span class="comment">#方法1：使用配置文件</span></span><br><span class="line">        <span class="comment">#settings = QSettings(&quot;mysoft&quot;,&quot;myapp&quot;)                        #方法2：使用注册表</span></span><br><span class="line">        excelpath =settings.value(<span class="string">&quot;excelpath&quot;</span>)</span><br><span class="line">        readsheetname = settings.value(<span class="string">&quot;readsheetname&quot;</span>)</span><br><span class="line">        browser = settings.value(<span class="string">&quot;browser&quot;</span>)</span><br><span class="line">        driver_path = settings.value(<span class="string">&quot;driver_path&quot;</span>)</span><br><span class="line">        startnum = settings.value(<span class="string">&quot;startnum&quot;</span>)</span><br><span class="line">        endnum= settings.value(<span class="string">&quot;endnum&quot;</span>)</span><br><span class="line">        rownum = settings.value(<span class="string">&quot;rownum&quot;</span>)</span><br><span class="line">        sleeptime = settings.value(<span class="string">&quot;sleeptime&quot;</span>)</span><br><span class="line">        topage = settings.value(<span class="string">&quot;topage&quot;</span>)</span><br><span class="line">        toline = settings.value(<span class="string">&quot;toline&quot;</span>)</span><br><span class="line">        need_domain = settings.value(<span class="string">&quot;need_domain&quot;</span>)</span><br><span class="line">        <span class="comment">########</span></span><br><span class="line">        self.ui.excelpath.setText(excelpath)</span><br><span class="line">        self.ui.readsheetname.setText(readsheetname)</span><br><span class="line">        self.ui.browser.setCurrentText(browser)</span><br><span class="line">        self.ui.driver_path.setText(driver_path)</span><br><span class="line">        self.ui.startnum.setText(startnum)</span><br><span class="line">        self.ui.endnum.setText(endnum)</span><br><span class="line">        self.ui.row.setText(rownum)</span><br><span class="line">        self.ui.sleeptime.setText(sleeptime)</span><br><span class="line">        self.ui.topage.setText(topage)</span><br><span class="line">        self.ui.toline.setText(toline)</span><br><span class="line">        self.ui.need_domain.setCurrentText(need_domain)</span><br><span class="line">    <span class="comment">#打开文件</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">msge</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># directory1 = QFileDialog.getExistingDirectory(self,&quot;选取文件夹&quot;,&quot;./&quot;)   #起始路径</span></span><br><span class="line">        fileName1, filetype1 = QFileDialog.getOpenFileName(self, <span class="string">&quot;选取文件&quot;</span>, <span class="string">&quot;./&quot;</span>,</span><br><span class="line">                                                          <span class="string">&quot;All Files (*)&quot;</span>)  <span class="comment"># 设置文件扩展名过滤,注意用双分号间隔</span></span><br><span class="line">        self.ui.excelpath.setText(fileName1)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">msg</span>(<span class="params">self</span>):</span><br><span class="line">        fileName2, filetype2 = QFileDialog.getOpenFileName(self, <span class="string">&quot;选取文件&quot;</span>, <span class="string">&quot;./&quot;</span>,</span><br><span class="line">                                                          <span class="string">&quot;All Files (*)&quot;</span>)  <span class="comment"># 设置文件扩展名过滤,注意用双分号间隔</span></span><br><span class="line">        self.ui.driver_path.setText(fileName2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">clearResult</span>(<span class="params">self</span>):</span><br><span class="line">        self.ui.excelpath.clear()</span><br><span class="line">        self.ui.readsheetname.clear()</span><br><span class="line">        self.ui.driver_path.clear()</span><br><span class="line">        self.ui.startnum.clear()</span><br><span class="line">        self.ui.endnum.clear()</span><br><span class="line">        self.ui.sleeptime.clear()</span><br><span class="line">        self.ui.topage.clear()</span><br><span class="line">        self.ui.toline.clear()</span><br><span class="line">        self.ui.output.clear()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">begin</span>(<span class="params">self</span>):</span><br><span class="line">    	<span class="comment">#保存配置</span></span><br><span class="line">        self.save_login_info()</span><br><span class="line">        startnum = <span class="built_in">int</span>(self.ui.startnum.text())  </span><br><span class="line">        endnum = <span class="built_in">int</span>(self.ui.endnum.text()) </span><br><span class="line">        rownum = <span class="built_in">int</span>(self.ui.row.text())</span><br><span class="line">        excelpath = self.ui.excelpath.text()</span><br><span class="line">        readsheetname = self.ui.readsheetname.text() </span><br><span class="line">        sleeptime = <span class="built_in">int</span>(self.ui.sleeptime.text())</span><br><span class="line">        browser = self.ui.browser.currentText()</span><br><span class="line">        driver_path = self.ui.driver_path.text()</span><br><span class="line">        topage = <span class="built_in">int</span>(self.ui.topage.text())</span><br><span class="line">        toline = <span class="built_in">int</span>(self.ui.toline.text())</span><br><span class="line">        need_domain=self.ui.need_domain.currentText()</span><br><span class="line">        <span class="comment"># 第3/3</span></span><br><span class="line">        <span class="comment">#调用主程序，New0111.py文件中NewoneEVE函数，并将返回值显示在界面上</span></span><br><span class="line">        ndomin,npage,nline,mainbody=NewoneEVE(startnum, endnum, rownum, excelpath, readsheetname, sleeptime, browser,driver_path, topage, toline, need_domain)</span><br><span class="line">        self.ui.output.setText(<span class="string">&#x27;当前信息：&#x27;</span>+<span class="built_in">str</span>(ndomin)+<span class="string">&quot;  &quot;</span>+<span class="built_in">str</span>(mainbody)+<span class="string">&quot;  &quot;</span>+<span class="string">&#x27;当前页【&#x27;</span>+ <span class="built_in">str</span>(npage)+ <span class="string">&#x27;】;当前行【&#x27;</span>+ <span class="built_in">str</span>(nline)+ <span class="string">&#x27;】&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment">#固定的，PyQt5程序都需要QApplication对象。sys.argv是命令行参数列表，确保程序可以双击运行</span></span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line">    <span class="comment">#初始化</span></span><br><span class="line">    myWin = RecallInterface()</span><br><span class="line">    <span class="comment">#将窗口控件显示在屏幕上</span></span><br><span class="line">    myWin.show()</span><br><span class="line">    <span class="comment">#程序运行，sys.exit方法确保程序完整退出。</span></span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+
+<p>5、为实验代码的可迁移性，使用命令行将文件打包生成exe文件。命令成功运行后，将会在项目目录中看到build文件夹和dist文件夹，把dist文件夹中的文件打包给第三方使用即可。<br>（1) 需要了解pyinstaller相关参数以及使用的格式<a target="_blank" rel="noopener" href="https://pyinstaller.readthedocs.io/en/stable/index.html">pyinstaller文档</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F -w RecallInterface.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -F -w RecallInterface.py -i Documents.ico</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller -D RecallInterface.py Interface.py f1.py</span><br></pre></td></tr></table></figure>
+<pre><code> 常见的用法
+ -F：dist文件下只有exe文件，把所有东西打包成一个exe文件，结构简单，启动慢。
+ -D（默认）：dist文件下有exe文件以及依赖的附件，打包成多个文件，结构复杂，启动快。
+ -w：没有命令行窗口
+ -i：exe文件的图标
+</code></pre>
+<p>(2)多个文件打包</p>
+<ul>
+<li>命令行打包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#RecallInterface.py，Interface.py, f1.py在同一目录下,默认是以-D形式打包</span></span><br><span class="line">pyinstaller RecallInterface.py Interface.py, f1.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller RecallInterface.py -p C:/Interface.py, -p C:/f1.py</span><br></pre></td></tr></table></figure>
+
+<p>注：到切换到主文件路径下执行命令，不然要写RecallInterface.py，Interface.py, f1.py的完整路径。</p>
+<ul>
+<li>pyi-makespec打包<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyi-makespec RecallInterface.py</span><br></pre></td></tr></table></figure>
+修改.spec文件<a target="_blank" rel="noopener" href="https://pyinstaller.readthedocs.io/en/stable/spec-files.html#">spec文档</a><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- mode: python ; coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">block_cipher = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = Analysis([<span class="string">&#x27;RecallInterface.py&#x27;</span>, <span class="string">&#x27;Interface.py&#x27;</span>, <span class="string">&#x27;f1.py&#x27;</span>],</span><br><span class="line">             pathex=[<span class="string">&#x27;C:\\pythonProject\\crawer&#x27;</span>],</span><br><span class="line">             binaries=[],</span><br><span class="line">             datas=[],</span><br><span class="line">             <span class="comment">#此处可以添加静态资源，例如你有个图片文件夹imgs，可以这样写[(&#x27;imgs&#x27;,&#x27;imgs&#x27;),(&#x27;test.txt&#x27;,&#x27;.&#x27;)]，打包以后会有一个一样的文件夹，点表示当前文件夹。</span></span><br><span class="line">             hiddenimports=[],</span><br><span class="line">             hookspath=[],</span><br><span class="line">             runtime_hooks=[],</span><br><span class="line">             excludes=[],</span><br><span class="line">             win_no_prefer_redirects=<span class="literal">False</span>,</span><br><span class="line">             win_private_assemblies=<span class="literal">False</span>,</span><br><span class="line">             cipher=block_cipher,</span><br><span class="line">             noarchive=<span class="literal">False</span>)</span><br><span class="line">pyz = PYZ(a.pure, a.zipped_data,</span><br><span class="line">             cipher=block_cipher)</span><br><span class="line">exe = EXE(pyz,</span><br><span class="line">          a.scripts,</span><br><span class="line">          a.binaries,</span><br><span class="line">          a.zipfiles,</span><br><span class="line">          a.datas,</span><br><span class="line">          [],</span><br><span class="line">          name=<span class="string">&#x27;RecallInterface&#x27;</span>,</span><br><span class="line">          debug=<span class="literal">False</span>,</span><br><span class="line">          bootloader_ignore_signals=<span class="literal">False</span>,</span><br><span class="line">          strip=<span class="literal">False</span>,</span><br><span class="line">          upx=<span class="literal">True</span>,<span class="comment"># 打包的时候进行压缩，False表示不压缩</span></span><br><span class="line">          upx_exclude=[],<span class="comment"># 是否显示黑窗口，刚开始打包的时候一般都会有问题，建议设为True，解决所有问题后可以设置为False)</span></span><br><span class="line">          runtime_tmpdir=<span class="literal">None</span>,</span><br><span class="line">          console=<span class="literal">True</span> )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+执行命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller RecallInterface.spec</span><br></pre></td></tr></table></figure>
+<script src="https://utteranc.es/client.js" repo="maryxingguo / blog-commit" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
+</script></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/13/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sing</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"maryxingguo/blog-commit","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

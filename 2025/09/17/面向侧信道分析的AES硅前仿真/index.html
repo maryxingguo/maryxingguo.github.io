@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"maryxingguo.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="利用硅前仿真采集AES能耗数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向侧信道分析的AES硅前仿真">
+<meta property="og:url" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/index.html">
+<meta property="og:site_name" content="Sing Blog">
+<meta property="og:description" content="利用硅前仿真采集AES能耗数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps1.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps2.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps3.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps4.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps5.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps6.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps7.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps8.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps9.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps10.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps11.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps12.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps13.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps14.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps15.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps16.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps17.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps18.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps19.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps20.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps21.jpg">
+<meta property="og:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps22.jpg">
+<meta property="article:published_time" content="2025-09-17T01:31:38.000Z">
+<meta property="article:modified_time" content="2025-09-17T09:49:19.969Z">
+<meta property="article:author" content="Sing">
+<meta property="article:tag" content="侧信道分析">
+<meta property="article:tag" content="硅前仿真">
+<meta property="article:tag" content="AES">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/wps1.jpg">
+
+
+<link rel="canonical" href="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/","path":"2025/09/17/面向侧信道分析的AES硅前仿真/","title":"面向侧信道分析的AES硅前仿真"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面向侧信道分析的AES硅前仿真 | Sing Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Sing Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">1 理论知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-AES%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 AES算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 侧信道分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 AES硅前仿真原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="nav-number">2.</span> <span class="nav-text">2 硅前仿真实验报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-RTL%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 RTL级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-128%E4%BD%8DAES%E5%8A%A0%E5%AF%86RTL%E7%BA%A7-Verilog%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 128位AES加密RTL级 Verilog实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-RTL%E4%BB%BF%E7%9C%9F"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 RTL仿真</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E9%97%A8%E7%BA%A7"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 门级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E7%BB%BC%E5%90%88"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 综合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E7%AD%89%E6%95%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 *等效性检验*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E9%97%A8%E7%BA%A7%E4%BB%BF%E7%9C%9F"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 门级仿真</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-%E9%97%A8%E7%BA%A7%E5%8A%9F%E8%80%97%E4%BB%BF%E7%9C%9F"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4 门级功耗仿真</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E6%99%B6%E4%BD%93%E7%AE%A1%E7%BA%A7%E5%92%8C%E7%89%88%E5%9B%BE%E7%BA%A7"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 晶体管级和版图级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-ICC%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8"><span class="nav-number">2.4.1.</span> <span class="nav-text">2.4.1 ICC软件使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E5%B8%83%E5%B1%80%E5%B8%83%E7%BA%BF%E5%89%8D%E6%9C%9F%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.4.2 布局布线前期设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-3-%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%92"><span class="nav-number">2.4.3.</span> <span class="nav-text">2.4.3 布局规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-4-%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96"><span class="nav-number">2.4.4.</span> <span class="nav-text">2.4.4 布局优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-5-%E6%97%B6%E9%92%9F%E6%A0%91%E7%BB%BC%E5%90%88"><span class="nav-number">2.4.5.</span> <span class="nav-text">2.4.5 时钟树综合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-6-%E5%B8%83%E7%BA%BF%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96"><span class="nav-number">2.4.6.</span> <span class="nav-text">2.4.6 布线及其优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-7-%E7%89%88%E5%9B%BE"><span class="nav-number">2.4.7.</span> <span class="nav-text">2.4.7 版图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-8-%E6%97%B6%E5%BA%8F%E5%88%86%E6%9E%90"><span class="nav-number">2.4.8.</span> <span class="nav-text">2.4.8 时序分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E7%AD%89%E6%95%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-number">2.4.9.</span> <span class="nav-text">1.1.1 *等效性检验*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-9-%E7%89%A9%E7%90%86%E7%BA%A7%E4%BB%BF%E7%9C%9F"><span class="nav-number">2.4.10.</span> <span class="nav-text">2.4.9 物理级仿真</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%85%B6%E4%BB%96"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-1-%E6%95%B0%E5%AD%97IC%E5%90%8E%E7%AB%AF%E8%AE%BE%E8%AE%A1%E5%90%84%E9%98%B6%E6%AE%B5%E7%BD%91%E8%A1%A8%E7%89%B9%E6%80%A7%E4%B8%8E%E7%94%A8%E9%80%94"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.5.1 数字IC后端设计各阶段网表特性与用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-2-%E5%8A%9F%E8%80%97%E4%BB%BF%E7%9C%9F%E7%B2%BE%E5%BA%A6%E5%92%8C%E9%80%9F%E5%BA%A6"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.5.2 功耗仿真精度和速度</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Sing</p>
+  <div class="site-description" itemprop="description">笔记</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/maryxingguo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;maryxingguo" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://maryxingguo.github.io/2025/09/17/%E9%9D%A2%E5%90%91%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90%E7%9A%84AES%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Sing">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sing Blog">
+      <meta itemprop="description" content="笔记">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="面向侧信道分析的AES硅前仿真 | Sing Blog">
+      <meta itemprop="description" content="利用硅前仿真采集AES能耗数据">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面向侧信道分析的AES硅前仿真
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-09-17 09:31:38 / 修改时间：17:49:19" itemprop="dateCreated datePublished" datetime="2025-09-17T09:31:38+08:00">2025-09-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">利用硅前仿真采集AES能耗数据</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-理论知识"><a href="#1-理论知识" class="headerlink" title="1 理论知识"></a>1 <strong>理论知识</strong></h1><h2 id="1-1-AES算法实现"><a href="#1-1-AES算法实现" class="headerlink" title="1.1 AES算法实现"></a>1.1 AES算法实现</h2><p>AES算法是目前应用最广泛的对称密码算法之一，在信息安全保护领域发挥着重要作用。该算法主要包含四种操作，分别是轮密钥加(Add Round Key)、字节代换(Sub Byte)、行位移(Shift Rows)和列混合(Mix Column)，其中值得格外关注的是轮密钥加运算将原始的密钥扩展出了10个轮密钥，分别用于10轮运算。经过多年的分析和使用，AES在分组密码算法中占据稳固的地位。</p>
+<p>AES算法实现包含软件和硬件实现。软件实现通过编程语言在CPU、MCU等通用计算核心上运行，借助AES指令集扩展提升效率，具有灵活性强、部署成本低、开发周期短的优势，适用于嵌入式设备等场景多变的通用加密需求。硬件实现则通过ASIC、FPGA等专用电路固化AES逻辑，采用迭代或流水线结构设计，具备吞吐量高、延迟低、资源隔离性好及易实现硬件级侧信道防护的特点，适配安全芯片等高性能、高安全等级的专用场景。<em><strong>*相较于软件实现，基于AES算法的硬件实现存在开发周期长、成本高的问题。*</strong></em></p>
+<p>以AES芯片为例，开发周期包括硅前和硅后阶段。“硅前”指流片前借助EDA工具完成电路设计、仿真、验证等核心工作，以确保设计方案在功能、性能、功耗等方面符合需求且可制造的过程。与之相对，“硅后”指流片完成后对实际制造的物理芯片进行封装、全方位测试以及规模化量产的阶段，此时芯片已具备物理实体。以Alma Technologies公司开发的一款加密芯片Alma AES-P为例，物理制造成本费用主要由掩膜版和晶圆构成，且掩膜版占比大、成本高。因此，在硅前进行密码芯片全面评估至关重要，可提前发现问题以规避高昂的芯片物理制造失败损失。</p>
+<h2 id="1-2-侧信道分析"><a href="#1-2-侧信道分析" class="headerlink" title="1.2 侧信道分析"></a>1.2 侧信道分析</h2><p>密码算法安全性不仅依赖于算法本身的数学理论基础，更依赖于实际部署中的实现安全性。侧信道分析就是利用软件或者硬件实现密码算法执行过程中泄露的物理信息恢复密钥等密密信息。随着深度神经网络应用于侧信道分析领域，攻击时仅需要几条信号即可完成侧信道分析。</p>
+<p>目前，为密码算法添加掩码等防护策略有助于抵抗侧信道分析，但是正确实施掩码防护是一件繁琐、且容易出错的任务。此外，密码算法硬件实现存在开发周期长、成本高的问题。因此，加掩密码算法硬件实现更需要在硅前阶段确保没有侧信道泄露。<em><strong>*在硅前阶段进行泄露定位有助于早期发现泄露并向设计者反馈细节，降低因评估失败导致的芯片重设计与制造成本。*</strong></em></p>
+<p>传统泄露定位方法主要应用在硅后阶段，在硅前阶段研究存在不足。如t-Test需大量功耗轨迹，效率低；DL-SCA对掩码实现威胁大，无需预处理，但硅前阶段针对其的泄漏定位方法尚未深入研究。（基于非侧信道分析的形式验证方法，如REBECCA，依赖SAT solver，规模和时间受限）</p>
+<h2 id="1-3-AES硅前仿真原理"><a href="#1-3-AES硅前仿真原理" class="headerlink" title="1.3 AES硅前仿真原理"></a>1.3 AES硅前仿真原理</h2><p>硅前设计遵循“从抽象到具体”的分层范式，通过构建RTL级行为模型、门级逻辑模型、晶体管级开关模型、版图级集几何模型等层层递进的精准模型，实现从抽象设计意图到物理实体的“无偏差映射”。但这一过程中，“设计是否正确”“物理实现后是否存在风险”无法直接判断，因此硅前仿真成为连接“设计模型”与“实体芯片”的关键桥梁。其核心原理是基于“模型驱动”与“物理规律映射”，通过EDA工具将芯片设计全流程转化为可计算的数字模型，用数学算法提前“预演”实体芯片的电学、逻辑及物理行为，确保设计无偏差落地。</p>
+<p>为适配不同设计阶段的需求，硅前仿真（涵盖功能、时序、功耗等多维度验证目标）呈现“分层递进”的特点。在设计早期，RTL级仿真以Verilog&#x2F;VHDL语言快速验证算法逻辑正确性，初步定位潜在泄露模块。进入中期，门级仿真融入逻辑门延时信息，更贴近电路实际工作状态，不仅可二次确认功能正确性，也可进一步分析逻辑级信息泄露。到了物理实现前，物理级仿真（即晶体管级和版图级设计阶段）进一步整合连线寄生参数，以高精度验证时序性能，同时为分析布局布线引入的物理级信息泄露提供支撑。硅前仿真为芯片“功能正确、性能达标”提供了全流程的前置验证与优化依据。</p>
+<p>以AES加密芯片的功耗仿真为例，AES在运算时的敏感信息（如密钥、中间结果）会通过功耗无意识泄露，其中与敏感信息直接相关的“动态功耗”，正是侧信道分析恢复密钥的突破口。在此场景下，基于设计模型与工艺参数的硅前仿真，能够提前捕捉芯片的功耗特征，为侧信道风险预判提供依据。不过，在依托功耗仿真开展抗侧信道安全评估时，需在模型精度与仿真速度之间进行精准权衡。从RTL到晶体管级的抽象层级递进过程中，每一层级的深入都会揭示更多影响功耗的潜在依赖关系：例如，门级功耗模型可有效捕捉门驱动强度、静态功耗泄漏及IR降效应等关键因素，这些在RTL功耗模型中不可见的因素，却会显著影响数据依赖性功耗。</p>
+<h1 id="2-硅前仿真实验报告"><a href="#2-硅前仿真实验报告" class="headerlink" title="2 硅前仿真实验报告"></a>2 <strong>硅前仿真实验报告</strong></h1><p>采用Synopsys公司的芯片设计流程和32-28纳米工艺的电子设计套件。首先根据设计规范,使用Verilog硬件描述语言编写可综合的<em><strong>*RTL代码*</strong></em>,并对RTL代码进行仿真。然后对RTL代码进行综合，综合后生成的门级网表和RTL代码进行<em><strong>*等效性检验*<em><strong>并</strong></em>*做静态时序分析，*<em><strong>进而实现</strong></em>*门级仿真*<em><strong>。接着进行版图设计,先是根据各逻辑单元间的时序采用时序驱动布局策略来做</strong></em>*物理布局和全局布线*</strong></em>,之后在设计中插入<em><strong>*时钟树*<em><strong>。然后进行详细</strong></em>*布线*</strong></em>,并从详细布线后的版图中提取出****真实的时延值*<em><strong>并将其反标给网表,再作</strong></em>*等效性检验*<em><strong>、</strong></em>*静态时序分析*<em><strong>和</strong></em>*仿真验证****保证满足时序约束。</p>
+<h2 id="2-1-实验环境"><a href="#2-1-实验环境" class="headerlink" title="2.1 实验环境"></a>2.1 实验环境</h2><p>仿真平台：VMware虚拟机，Centos7操作系统，Synopsys系列设计软件（VCS、DC、ICC、FM、PT）</p>
+<p>仿真项目：</p>
+<p><img src="wps1.jpg" alt="img"> </p>
+<h2 id="2-2-RTL级"><a href="#2-2-RTL级" class="headerlink" title="2.2 RTL级"></a>2.2 RTL级</h2><p>目标：用硬件描述语言Verilog实现AES算法，并利用VCS软件实现RTL级仿真。</p>
+<h3 id="2-2-1-128位AES加密RTL级-Verilog实现"><a href="#2-2-1-128位AES加密RTL级-Verilog实现" class="headerlink" title="2.2.1 128位AES加密RTL级 Verilog实现"></a>2.2.1 128位AES加密RTL级 Verilog实现</h3><p><img src="wps2.jpg" alt="img"> </p>
+<p>图1：RTL级 Verilog实现</p>
+<p>aes_ASIC.v是ASIC芯片顶层接口模块，通过标准化的WISHBONE总线接口实现外部设备与AES加密功能的通信。</p>
+<p>aes_top.v是WISHBONE总线对AES加密的控制模块，实现对 AES 加密流程的总线控制。</p>
+<p>aes_cipher_top.v是128位AES加密核心模块，完整实现128位AES加密流程，包括初始化、轮密钥加、字节替换、行移位、列混淆等AES标准算法步骤。</p>
+<p>aes_key_expand_128.v是密钥扩展模块，生成AES加密所需的轮密钥。</p>
+<p>aes_rcon.v是轮常量生成模块，生成轮密钥所需的 8 位轮常量。</p>
+<p>aes_sbox.v是字节替换模块，实现8位输入数据到8位输出数据的非线性映射。</p>
+<p>代码来自Rudolf Usselmann（硬件设计领域工程师，活跃于开源硬件社区）的开源项目（<a target="_blank" rel="noopener" href="http://www.asics.ws)/">www.asics.ws）</a></p>
+<h3 id="2-2-2-RTL仿真"><a href="#2-2-2-RTL仿真" class="headerlink" title="2.2.2 RTL仿真"></a>2.2.2 RTL仿真</h3><p>命令行：.&#x2F;run_vcs</p>
+<p>功能：利用VCS软件编译所有文件并生成仿真可执行文件，最终输出AES加密的仿真结果。</p>
+<p><img src="wps3.jpg" alt="img"> </p>
+<p>所需材料：激励文件、RTL级 Verilog实现、AED 32nm工艺库I&#x2F;O接口模块。</p>
+<h2 id="2-3-门级"><a href="#2-3-门级" class="headerlink" title="2.3 门级"></a>2.3 门级</h2><p>目标：通过DC综合软件将RTL代码转化为和工艺库对应的门级网表，并利用VCS软件实现门级仿真。</p>
+<p>输入：RTL代码、工艺库</p>
+<p>输出：网表(Netlist)、值变存储文件（VCD）、时序约束文件（SDC）、功耗文件</p>
+<h3 id="2-3-1-综合"><a href="#2-3-1-综合" class="headerlink" title="2.3.1 综合"></a>2.3.1 综合</h3><p>（1）RTL预处理</p>
+<p>命令行：run_dc_read_rtl.sh</p>
+<p>功能：初始化工作目录、配置综合参数，并调用DC软件执行RTL代码读取流程。</p>
+<p><img src="wps4.jpg" alt="img"> </p>
+<p>（2）综合</p>
+<p>命令行：run_dc_constraint_compile.sh</p>
+<p>功能：初始化工作目录、配置综合优化参数，并调用DC软件执行执行“时序约束+综合优化”流程。</p>
+<p><img src="wps5.jpg" alt="img"> </p>
+<h3 id="2-3-2-等效性检验"><a href="#2-3-2-等效性检验" class="headerlink" title="2.3.2 *等效性检验*"></a><strong>2.3.2</strong> <em><strong>*等效性检验*</strong></em></h3><p>命令行：run_fm.scr</p>
+<p>功能：利用FM软件将RTL和网表进行功能对比，检查门级网表的正确性。</p>
+<p><img src="wps6.jpg" alt="img"> </p>
+<p><img src="wps7.jpg" alt="img"> </p>
+<h3 id="2-3-3-门级仿真"><a href="#2-3-3-门级仿真" class="headerlink" title="2.3.3 门级仿真"></a>2.3.3 门级仿真</h3><p>代码行：.&#x2F;run_vcs</p>
+<p>功能：基于实际的逻辑门网表和时序信息进行门级仿真。</p>
+<p><img src="wps8.jpg" alt="img"> </p>
+<h3 id="2-3-4-门级功耗仿真"><a href="#2-3-4-门级功耗仿真" class="headerlink" title="2.3.4 门级功耗仿真"></a>2.3.4 门级功耗仿真</h3><p>把门级生成的VCD文件和工艺库放入Primepower中，计算出一条条对应着明文的瞬时功耗曲线AES1.out。使用Primepower计算一条功耗的过程如下：</p>
+<p>1）set search_path “&#x2F;home&#x2F;…&#x2F;project&#x2F;AES” &#x2F;&#x2F; 设置源文件和工艺库文件所在目录</p>
+<p>2）set link_path “* slow.db fast.db dw_foundation.sldb” &#x2F;&#x2F;指定工艺库文件</p>
+<p>3）read_verilog &#x2F;home&#x2F;…&#x2F;project&#x2F;AES&#x2F;AES_NETLIST.v &#x2F;&#x2F;读入网表文件</p>
+<p>4）current_design AES &#x2F;&#x2F; 指定编译芯片的主模块名</p>
+<p>5）read_vcd -strip_path AES_TB&#x2F;AES AES1.VCD &#x2F;&#x2F;读入VCD文件</p>
+<p>6）set_waveform -file &#x2F;home&#x2F;…&#x2F;project&#x2F;AES&#x2F;AES1.out-format out&#x2F;&#x2F;指定功耗输出路径</p>
+<p>7）calculate_power -waveform &#x2F;&#x2F; 根据网表和“值变存储文件”VCD计算功耗</p>
+<h2 id="2-4-晶体管级和版图级"><a href="#2-4-晶体管级和版图级" class="headerlink" title="2.4 晶体管级和版图级"></a>2.4 晶体管级和版图级</h2><p>目的：利用ICC软件将门级网表（仅包含逻辑单元连接关系）转化为符合工艺规则、满足时序&#x2F;功耗&#x2F;面积（PPA）要求的“物理版图”（包含单元位置、金属布线、电源网络等物理信息），并利用VCS实现物理级仿真。</p>
+<p>输入：门级网表、工艺库、器件库、时序约束文件</p>
+<p>输出：版图、布局布线网表</p>
+<h3 id="2-4-1-ICC软件使用"><a href="#2-4-1-ICC软件使用" class="headerlink" title="2.4.1 ICC软件使用"></a>2.4.1 ICC软件使用</h3><p>（1）文件准备</p>
+<p>命令行：</p>
+<p>chmod +x .&#x2F;prep_sdc.sh </p>
+<p>.&#x2F;prep_sdc.sh aes_ASIC.sdc</p>
+<p>功能：将 DC软件生成的SDC时序约束文件转换为适合ICC软件的格式。</p>
+<p><img src="wps9.jpg" alt="img"> </p>
+<p>（2）启动ICC工具</p>
+<p>命令行：</p>
+<p>icc_shell</p>
+<p>gui_start</p>
+<p>功能：启动ICC软件的命令行交互界面。</p>
+<p><img src="wps10.jpg" alt="img"> </p>
+<h3 id="2-4-2-布局布线前期设置"><a href="#2-4-2-布局布线前期设置" class="headerlink" title="2.4.2 布局布线前期设置"></a>2.4.2 布局布线前期设置</h3><p>命令行：source .&#x2F;scripts&#x2F;1_design_setup.tcl</p>
+<p>功能：创建设计库、导入网表和约束、配置工艺库和电源地网络，为后续的布局规划、时钟树综合、布线等步骤建立完整的设计环境，确保工具能正确识别设计数据和物理规则。</p>
+<p><img src="wps11.jpg" alt="img"> </p>
+<h3 id="2-4-3-布局规划"><a href="#2-4-3-布局规划" class="headerlink" title="2.4.3 布局规划"></a>2.4.3 布局规划</h3><p>命令行：source .&#x2F;scripts&#x2F;2_floorplan.tcl</p>
+<p>功能：定义芯片边界、放置单元、构建电源网络、优化布局和全局布线，为后续的时钟树综合（CTS）和详细布线奠定基础。</p>
+<p><img src="wps12.jpg" alt="img"> </p>
+<h3 id="2-4-4-布局优化"><a href="#2-4-4-布局优化" class="headerlink" title="2.4.4 布局优化"></a>2.4.4 布局优化</h3><p>命令行：source .&#x2F;scripts&#x2F;3_placement.tcl</p>
+<p>功能：实现单元精细放置优化、低功耗配置、时钟树规则定义，为后续时钟树综合（CTS）奠定基础。</p>
+<p><img src="wps13.jpg" alt="img"> </p>
+<h3 id="2-4-5-时钟树综合"><a href="#2-4-5-时钟树综合" class="headerlink" title="2.4.5 时钟树综合"></a>2.4.5 时钟树综合</h3><p>命令行：source .&#x2F;scripts&#x2F;4_cts.tcl</p>
+<p>功能：构建时钟树、配置CTS参数、优化时钟路径、执行物理布线，为后续信号布线和时序收敛奠定基础。</p>
+<p><img src="wps14.jpg" alt="img"> </p>
+<h3 id="2-4-6-布线及其优化"><a href="#2-4-6-布线及其优化" class="headerlink" title="2.4.6 布线及其优化"></a>2.4.6 布线及其优化</h3><p>命令行：source .&#x2F;scripts&#x2F;5_route.tcl</p>
+<p>功能：完成从时钟布线到信号布线的全流程，并确保布线结果符合物理规则和时序要求。</p>
+<p><img src="wps15.jpg" alt="img"> </p>
+<h3 id="2-4-7-版图"><a href="#2-4-7-版图" class="headerlink" title="2.4.7 版图"></a>2.4.7 版图</h3><p>命令行：source .&#x2F;scripts&#x2F;6_chip_finishing.tcl</p>
+<p>功能：将布线完成的设计打磨为符合流片要求的最终版本，并输出仿真网表、LVS网表、寄生参数、物理版图等文件。</p>
+<p><img src="wps16.jpg" alt="img"> </p>
+<p><img src="wps17.jpg" alt="img"> </p>
+<h3 id="2-4-8-时序分析"><a href="#2-4-8-时序分析" class="headerlink" title="2.4.8 时序分析"></a>2.4.8 时序分析</h3><p>命令行：</p>
+<p>chmod +x run_pt.sh</p>
+<p>run_pt.sh</p>
+<p>功能：实现时序分析。</p>
+<p><img src="wps18.jpg" alt="img"> </p>
+<p><img src="wps19.jpg" alt="img"> </p>
+<h3 id="1-1-1-等效性检验"><a href="#1-1-1-等效性检验" class="headerlink" title="1.1.1 *等效性检验*"></a><strong>1.1.1</strong> <em><strong>*等效性检验*</strong></em></h3><p>命令行：run_fm.scr</p>
+<p>功能：利用FM软件验证版图之后的网表和综合后的网表功能是否等价。</p>
+<p><img src="wps20.jpg" alt="img"> </p>
+<p><img src="wps21.jpg" alt="img"> </p>
+<h3 id="2-4-9-物理级仿真"><a href="#2-4-9-物理级仿真" class="headerlink" title="2.4.9 物理级仿真"></a>2.4.9 物理级仿真</h3><p>命令行：.&#x2F;run_vcs</p>
+<p>功能：实现物理级仿真</p>
+<p><img src="wps22.jpg" alt="img"> </p>
+<h2 id="2-5-其他"><a href="#2-5-其他" class="headerlink" title="2.5 其他"></a>2.5 其他</h2><h3 id="2-5-1-数字IC后端设计各阶段网表特性与用途"><a href="#2-5-1-数字IC后端设计各阶段网表特性与用途" class="headerlink" title="2.5.1 数字IC后端设计各阶段网表特性与用途"></a>2.5.1 数字IC后端设计各阶段网表特性与用途</h3><p>RTL综合后网表：作为前端逻辑到后端物理实现的过渡载体，仅包含核心逻辑信息，具体包括标准单元（如与门、触发器等）的实例化关系、模块间的端口连接逻辑，以及完整的设计层次结构。该网表不涉及任何物理位置延迟信息，只有门延迟（标准单元库的固有延迟参数），仅用于明确“用哪些逻辑单元实现设计功能”，是后续布局布线的基础输入。</p>
+<p>布局后网表：在RTL综合网表基础上，融入初步物理信息并聚焦时序相关性。其内容包含：核心逻辑单元（门电路、触发器等）及互连关系；基于单元物理摆放位置估算的互连寄生参数（RC延迟）；单元的具体物理坐标，以及完整的电源地（VDD&#x2F;VSS）网络。该网表涉及门延迟和互连延迟，核心用途是支持布局后时序仿真与分析，通过近似RC延迟初步验证时序性能，确保后续布线优化有明确方向，同时为物理实现的合理性提供早期评估依据。</p>
+<p>布线后网表：作为物理实现的最终网表，完整保留与逻辑功能、物理连接相关的所有元素，具体包括：二极管、电源地端口、布线过程中产生的寄生元件（如寄生电阻、电容）；设计的层次化结构（或按需扁平化），以及所有物理端口的精确连接关系。其核心用途是支撑“版图-网表一致性检查（LVS）”，通过与实际版图的物理连接比对，确保布线无开路、短路等错误，同时为流片前的最终时序验证、设计规则检查（DRC）提供精准的物理数据支撑。</p>
+<h3 id="2-5-2-功耗仿真精度和速度"><a href="#2-5-2-功耗仿真精度和速度" class="headerlink" title="2.5.2 功耗仿真精度和速度"></a>2.5.2 功耗仿真精度和速度</h3><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>依赖文件</th>
+<th>功耗精度</th>
+<th>仿真速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RTL级</td>
+<td>RTL代码+VCD波形</td>
+<td>低（±30%~50%）</td>
+<td>快</td>
+</tr>
+<tr>
+<td>门级</td>
+<td>门级网表+SDF文件</td>
+<td>中（±10%~30%）</td>
+<td>中</td>
+</tr>
+<tr>
+<td>物理级</td>
+<td>布局布线后网表+SPEF</td>
+<td>高（±5%~10%）</td>
+<td>慢</td>
+</tr>
+</tbody></table>
+<p>RTL级估算的功耗精度较低，因为依赖“虚拟门级模型”而非实际物理实现。不能直接计算功耗时，而是通过生成VCD文件提供信号翻转率数据，初步功耗估算。与RTL级的“初步估算”不同，门级仿真基于实际的逻辑门网表和时序信息，基于“实际门级网表+标准单元功耗模型+真实信号翻转波形”计算动态和静态功耗，能更贴近芯片的真实功耗表现。误差主要来源于标准单元库的功耗模型，它是基于典型工艺角的统计值，与实际芯片的工艺偏差存在差异。物理级功耗仿真是基于芯片物理实现的真实结构和参数（如布局布线后的版图、器件物理参数、互连寄生参数等），完全贴合真实芯片的硬件结构，能够提供接近实际芯片工作时的功耗数据。物理级功耗仿真的误差是模型简化、输入不完整、工具算法限制和制造偏差共同作用的结果。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BE%A7%E4%BF%A1%E9%81%93%E5%88%86%E6%9E%90/" rel="tag"># 侧信道分析</a>
+              <a href="/tags/%E7%A1%85%E5%89%8D%E4%BB%BF%E7%9C%9F/" rel="tag"># 硅前仿真</a>
+              <a href="/tags/AES/" rel="tag"># AES</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/13/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sing</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"maryxingguo/blog-commit","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
